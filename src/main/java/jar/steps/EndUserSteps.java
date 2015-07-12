@@ -1,42 +1,43 @@
 package jar.steps;
 
-import jar.pages.DictionaryPage;
+import jar.pages.HomePage;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 
 import static ch.lambdaj.Lambda.join;
+import static com.thoughtworks.selenium.SeleneseTestBase.assertTrue;
+import static com.thoughtworks.selenium.SeleneseTestNgHelper.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasItem;
 
 public class EndUserSteps extends ScenarioSteps {
 
-    DictionaryPage dictionaryPage;
+    HomePage homePage;
 
     @Step
-    public void enters(String keyword) {
-        dictionaryPage.enter_keywords(keyword);
+    public void enterKey(String keyword) {
+        homePage.enterKeywords(keyword);
     }
 
     @Step
-    public void starts_search() {
-        dictionaryPage.lookup_terms();
+    public void startSearch() {
+        homePage.search();
     }
 
     @Step
-    public void should_see_definition(String definition) {
-        assertThat(dictionaryPage.getDefinitions(), hasItem(containsString(definition)));
+    public void verifyFirstSearchResult(String expectedPhoneName) {
+        String firstItemName = homePage.getFirstSearchResultName();
+        assertTrue("The first search result is not an expected phone", firstItemName.matches(String.format("Смартфон(.*)%s(.*)", expectedPhoneName)));
     }
 
     @Step
-    public void is_the_home_page() {
-        dictionaryPage.open();
+    public void openHomePage() {
+        homePage.open();
     }
 
     @Step
-    public void looks_for(String term) {
-        enters(term);
-        starts_search();
+    public void searchFor(String model) {
+        enterKey(model);
+        startSearch();
     }
 }

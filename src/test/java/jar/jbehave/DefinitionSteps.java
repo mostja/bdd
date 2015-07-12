@@ -12,19 +12,18 @@ public class DefinitionSteps {
     @Steps
     EndUserSteps endUser;
 
-    @Given("the user is on the Wikionary home page")
-    public void givenTheUserIsOnTheWikionaryHomePage() {
-        endUser.is_the_home_page();
+    @Given("the user is on the Sokol home page")
+    public void givenTheUserIsOnTheSokolHomePage(){
+        endUser.openHomePage();
     }
 
-    @When("the user looks up the definition of the word '$word'")
-    public void whenTheUserLooksUpTheDefinitionOf(String word) {
-        endUser.looks_for(word);
+    @When("the user starts a search for '$model' phone")
+    public void whenTheUserStartsASearchForThePhone(String model) {
+        endUser.searchFor(model);
     }
 
-    @Then("they should see the definition '$definition'")
-    public void thenTheyShouldSeeADefinitionContainingTheWords(String definition) {
-        endUser.should_see_definition(definition);
+    @Then("'$model' phone is the first one in results list")
+    public void thenThePhoneIsTheFirstOneInResultsList(String model) {
+        endUser.verifyFirstSearchResult(model);
     }
-
 }
