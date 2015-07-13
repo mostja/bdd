@@ -17,12 +17,12 @@ public class DefinitionSteps {
         endUser.openHomePage();
     }
 
-    @When("the user starts a search for '$model' phone")
+    @When("the user starts a search for <model> phone")
     public void whenTheUserStartsASearchForThePhone(String model) {
         endUser.searchFor(model);
     }
 
-    @Then("'$model' phone is the first one in results list")
+    @Then("<model> phone is the first one in results list")
     public void thenThePhoneIsTheFirstOneInResultsList(String model) {
         endUser.verifyFirstSearchResult(model);
     }
