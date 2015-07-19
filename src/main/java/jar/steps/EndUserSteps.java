@@ -1,6 +1,7 @@
 package jar.steps;
 
-import jar.pages.HomePage;
+import jar.pages.ImdbHomePage;
+import jar.pages.SokolHomePage;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 
@@ -12,32 +13,48 @@ import static org.hamcrest.Matchers.hasItem;
 
 public class EndUserSteps extends ScenarioSteps {
 
-    HomePage homePage;
+    SokolHomePage sokolHomePage;
+    ImdbHomePage imdbHomePage;
 
     @Step
     public void enterKey(String keyword) {
-        homePage.enterKeywords(keyword);
+        sokolHomePage.enterKeywords(keyword);
     }
 
     @Step
     public void startSearch() {
-        homePage.search();
+        sokolHomePage.search();
     }
 
     @Step
     public void verifyFirstSearchResult(String expectedPhoneName) {
-        String firstItemName = homePage.getFirstSearchResultName();
+        String firstItemName = sokolHomePage.getFirstSearchResultName();
         assertTrue("The first search result is not an expected phone", firstItemName.matches(String.format("Смартфон(.*)%s(.*)", expectedPhoneName)));
     }
 
     @Step
-    public void openHomePage() {
-        homePage.open();
+    public void openSokolHomePage() {
+        sokolHomePage.open();
     }
 
     @Step
     public void searchFor(String model) {
         enterKey(model);
         startSearch();
+    }
+
+    @Step
+    public void openIMDBHomePage(){
+        imdbHomePage.open();
+    }
+
+    @Step
+    public void logInToImdb(String email, String pasword){
+        imdbHomePage.login(email, pasword);
+    }
+
+    @Step
+    public void verifyUserIsLoggedtoIMDB(){
+        assertTrue(imdbHomePage.isLoggedIn());
     }
 }

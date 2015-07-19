@@ -1,3 +1,4 @@
+Meta: @ignore
 Narrative:
 As a user
 I want to search for a specific phone

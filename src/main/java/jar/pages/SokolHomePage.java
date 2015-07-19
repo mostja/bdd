@@ -15,7 +15,7 @@ import java.util.List;
 import static ch.lambdaj.Lambda.convert;
 
 @DefaultUrl("http://www.sokol.ua")
-public class HomePage extends PageObject {
+public class SokolHomePage extends PageObject {
 
     @FindBy(id="field-input-search")
     private WebElementFacade searchTextField;
